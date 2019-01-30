@@ -39,7 +39,8 @@ namespace probnytest
             else return -1;
         };
 
-        public static Comparison<Produkt> PorownajPoWadzePotemPoCenie = delegate (Produkt x, Produkt y)
+        //wersja w notacji lambda
+        public static Comparison<Produkt> PorownajPoWadzePotemPoCenie = (Produkt x, Produkt y) =>
         {
             if (x.waga > y.waga) return 1;
             else if (x.waga == y.waga) return PorownajPoCenie(x, y);
@@ -107,6 +108,34 @@ namespace probnytest
 
             Console.WriteLine("Lista posortowana po cenie, następnie po wadze");
             lista.Sort(Produkt.PorownajPoCeniePotemPoWadze);
+            foreach (var produkt in lista)
+            {
+                Console.WriteLine(produkt);
+            }
+            Console.WriteLine("---------------");
+
+
+            Console.WriteLine("Jeszcze raz po wadze, tylko z funkcją anonimową podaną jako argument");
+            lista.Sort( delegate(Produkt x, Produkt y)
+            {
+                if (x.waga > y.waga) return 1;
+                else if (x.waga == y.waga) return 0;
+                else return -1;
+            });
+            foreach (var produkt in lista)
+            {
+                Console.WriteLine(produkt);
+            }
+            Console.WriteLine("---------------");
+
+
+            Console.WriteLine("Jeszcze raz po cenie, tylko z lambdą podaną jako argument");
+            lista.Sort( (Produkt x, Produkt y) =>
+            {
+                if (x.cena > y.cena) return 1;
+                else if (x.cena == y.cena) return 0;
+                else return -1;
+            });
             foreach (var produkt in lista)
             {
                 Console.WriteLine(produkt);
